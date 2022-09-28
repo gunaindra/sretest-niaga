@@ -1,0 +1,19 @@
+sudo: false
+
+addons:
+  apt:
+    sources:
+      - chef-current-precise
+    packages:
+      - chefdk
+
+install: echo "skip bundle install"
+
+before_script:
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+
+script:
+  - chef --version
+  - chef exec rubocop
+  - chef exec foodcritic . --exclude spec -f any
+  - chef exec rspec spec

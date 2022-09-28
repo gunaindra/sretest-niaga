@@ -1,0 +1,44 @@
+{
+  "name": "source_install",
+  "description": "Provides shared code for install cookbooks",
+  "long_description": "# Source Install Cookbook\n\n[![License](https://img.shields.io/github/license/ualaska-it/source_install.svg)](https://github.com/ualaska-it/source_install)\n[![GitHub Tag](https://img.shields.io/github/tag/ualaska-it/source_install.svg)](https://github.com/ualaska-it/source_install)\n[![Build status](https://ci.appveyor.com/api/projects/status/u8rh876pwwhwl1je/branch/master?svg=true)](https://ci.appveyor.com/project/UAlaska/source-install/branch/master)\n\n__Maintainer: OIT Systems Engineering__ (<ua-oit-se@alaska.edu>)\n\n## Purpose\n\nThis cookbook installs a gem in Chef that provides logic for downloading, configuring, compiling, and installing packages from source.\nUsed by first-party cookbooks [openssl_install](https://github.com/UAlaska-IT/openssl_install), [sqlite_install](https://github.com/UAlaska-IT/sqlite_install), and [python_install](https://github.com/UAlaska-IT/python_install).\n\n## Requirements\n\n### Chef\n\nThis cookbook requires Chef 14+\n\n### Platforms\n\nSupported Platform Families:\n\n* Debian\n  * Ubuntu, Mint\n* Red Hat Enterprise Linux\n  * Amazon, CentOS, Oracle\n* Suse\n\nPlatforms validated via Test Kitchen:\n\n* Ubuntu\n* Debian\n* CentOS\n* Oracle\n* Fedora\n* Amazon\n* Suse\n\nNotes:\n\n* This cookbook should support any recent Linux variant.\n\n### Dependencies\n\nThis cookbook does not constrain its dependencies because it is intended as a utility library.\nIt should ultimately be used within a wrapper cookbook.\n\n## Resources\n\nThis cookbook provides no resources but can be used to create install resources by extending SourceInstall::Install.\n\n## Recipes\n\nThis cookbook provides no recipes.\n\n## Examples\n\nSee example usage in [openssl_install](), [sqlite_install](), and [python_install]().\n\n## Development\n\nSee CONTRIBUTING.md and TESTING.md.\n",
+  "maintainer": "OIT Systems Engineering",
+  "maintainer_email": "ua-oit-se@alaska.edu",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 14.0",
+    "debian": ">= 8.0",
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0",
+    "oracle": ">= 6.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "suse": ">= 0.0.0"
+  },
+  "dependencies": {
+    "checksum_file": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.1.1",
+  "source_url": "https://github.com/ualaska-it/source_install",
+  "issues_url": "https://github.com/ualaska-it/source_install/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 14.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+    [
+      "source_install"
+    ]
+  ]
+}
