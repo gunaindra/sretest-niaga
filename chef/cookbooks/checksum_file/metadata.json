@@ -1,0 +1,42 @@
+{
+  "name": "checksum_file",
+  "description": "Writes the checksum of a source file or directory to a target file, often for implementing idempotence",
+  "long_description": "# Checksum File Cookbook\n\n[![License](https://img.shields.io/github/license/ualaska-it/checksum_file.svg)](https://github.com/ualaska-it/checksum_file)\n[![GitHub Tag](https://img.shields.io/github/tag/ualaska-it/checksum_file.svg)](https://github.com/ualaska-it/checksum_file)\n[![Build status](https://ci.appveyor.com/api/projects/status/hqu2xohgdgi1b0wx/branch/master?svg=true)](https://ci.appveyor.com/project/UAlaska/checksum-file/branch/master)\n\n__Maintainer: OIT Systems Engineering__ (<ua-oit-se@alaska.edu>)\n\n## Purpose\n\nThis cookbook provides a single resource that calculates the checksum of a source file, then writes that checksum and other file data to a target file.\nThe resource will signal convergence only if the content of the target file changes.\n\nThe most common use of the checksum_file resource is to implement idempotence in a more robust fashion than looking at a single file.\nOne caveat is that this resource takes longer than checking for the creation of a single file, so may be prohibitive for very large directories.\nHowever, the resource typically performs a tar and an md5sum on a target directory, and has been used for source trees of popular open-source projects without significant overhead compared to that of an entire Chef run.\nThis method is far faster than recursively checking content or even metadata of directory content.\n\n## Requirements\n\n### Chef\n\nThis cookbook requires Chef 14+\n\n### Platforms\n\nSupported Platform Families:\n\n* Debian\n  * Ubuntu, Mint\n* Red Hat Enterprise Linux\n  * Amazon, CentOS, Oracle\n* Suse\n\nPlatforms validated via Test Kitchen:\n\n* Ubuntu\n* Debian\n* CentOS\n* Oracle\n* Fedora\n* Amazon\n* Suse\n\nNotes:\n\n* This cookbook should support any recent Linux variant.\n\n### Dependencies\n\nThis cookbook does not constrain its dependencies because it is intended as a utility library.\nIt should ultimately be used within a wrapper cookbook.\n\n## Resources\n\nThis cookbook provides one resource for saving a checksum.\n\n### checksum_file\n\nThis resource provides a single action to save a checksum to a file.\n\n__Actions__\n\nOne action is provided.\n\n* `:save` - Post condition is that the checksum, and possibly the path and metadata of the source file, are written to the target file.\n\n__Attributes__\n\nThis resource has five attributes.\n\n* `source_path` - Required.\nThe local path to the source file (regular file or directory) for which the checksum is to be calculated.\n* `target_path` - Defaults to the name of the resource if not set explicitly.\nThe local path to which to write the checksum and file information.\n* `owner` - Defaults to `root`.\nThe owner of the target file.\n* `group` - Defaults to `root`.\nThe group of the target file.\n* `mode` - Defaults to `0o644`.\nThe permissions of the target file.\n* `include_path` - Defaults to `true`.\nDetermines if path information is recorded along with the checksum.\nIf true, a change to the source path (moving the source file) will cause the resource to converge and signal subscribers.\nThe source path is canonicalized before recording so relative, absolute, double dots, and multiple slashes do not matter.\n* `include_metadata` - Defaults to `true`.\nFor regular files, determines if metadata is recorded along with the checksum.\nIf true, changing owner, group, mode, or touching the source file will cause the resource to converge and signal subscribers.\nFor directories, metadata is always included for the directory itself and its content.\nDue to a limitation of GNU tar, modification times are only accurate to one second for directory content.\n* `checksum_algorithm` - Defaults to `md5`.\nThe algorithm to use.\nSupported values are `md5` and `sha1`, not case sensitive.\n\n## Recipes\n\nThis cookbook provides no recipes.\n\n## Examples\n\nCustom resources can be used as below.\n\n```ruby\nchecksum_file 'Source Checksum' do\n  source_path path_to_source_directory\n  target_path '/var/chef/cache/source-checksum'\nend\n\n# Make sure the build triggers iff the sources change\nfile path_to_bin_file do\n  action :nothing\n  subscribes :delete, 'checksum_file[Source Checksum]', :immediate\nend\n\nbash 'Compile and Install' do\n  code 'make && make install'\n  cwd path_to_source_directory\n  creates path_to_bin_file\nend\n```\n\n## Development\n\nSee CONTRIBUTING.md and TESTING.md.\n",
+  "maintainer": "OIT Systems Engineering",
+  "maintainer_email": "ua-oit-se@alaska.edu",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 16.0",
+    "debian": ">= 8.0",
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0",
+    "oracle": ">= 6.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "suse": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.0.3",
+  "source_url": "https://github.com/ualaska-it/checksum_file",
+  "issues_url": "https://github.com/ualaska-it/checksum_file/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 14.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "openssl_install",
+  "description": "Provides a resource for installing OpenSSL from source",
+  "long_description": "# OpenSSL Install Cookbook\n\n[![License](https://img.shields.io/github/license/ualaska-it/openssl_install.svg)](https://github.com/ualaska-it/openssl_install)\n[![GitHub Tag](https://img.shields.io/github/tag/ualaska-it/openssl_install.svg)](https://github.com/ualaska-it/openssl_install)\n[![Build status](https://ci.appveyor.com/api/projects/status/tw56lorxstg0ua5h/branch/master?svg=true)](https://ci.appveyor.com/project/UAlaska/openssl-install/branch/master)\n\n__Maintainer: OIT Systems Engineering__ (<ua-oit-se@alaska.edu>)\n\n## Purpose\n\nThis cookbook provides a single resource that downloads, configures, compiles, and installs OpenSSL.\n\n## Requirements\n\n### Chef\n\nThis cookbook requires Chef 14+\n\n### Platforms\n\nSupported Platform Families:\n\n* Debian\n  * Ubuntu, Mint\n* Red Hat Enterprise Linux\n  * Amazon, CentOS, Oracle\n* Suse\n\nPlatforms validated via Test Kitchen:\n\n* Ubuntu\n* Debian\n* CentOS\n* Oracle\n* Fedora\n* Amazon\n* Suse\n\nNotes:\n\n* This cookbook should support any recent Linux variant.\n\n### Dependencies\n\nThis cookbook does not constrain its dependencies because it is intended as a utility library.\nIt should ultimately be used within a wrapper cookbook.\n\n## Resources\n\nThis cookbook provides one resource for creating an OpenSSL installation.\n\n### openssl_installation\n\nThis resource provides a single action to create an OpenSSL installation.\n\n__Actions__\n\nOne action is provided.\n\n* `:create` - Post condition is that source and binary artifacts exist in specified directories.\n\n__Attributes__\n\n* `version` - Defaults to `nil`.\nThe version of OpenSSL to install.\nIf nil, will default to the latest version when this cookbook was updated.\nThe helper `default_openssl_version` is provided for fetching this value.\n* `download_directory` - Defaults to `nil`.\nThe local path to the directory into which to download the source archive.\nSee note below about paths.\n* `build_directory` - Defaults to `nil`.\nThe local path to the directory into which to decompress and build the source code.\nSee note below about paths.\n* `install_directory` - Defaults to `nil`.\nThe local path to the directory into which to install the binary artifacts.\nSee note below about paths.\n* `owner` - Defaults to `root`.\nThe owner of all artifacts.\n* `group` - Defaults to `root`.\nThe group of all artifacts.\n* `strict_security` - Defaults to `true`.\nDetermines if unsecure features of OpenSSL are disabled.\nThese include SSL2, SSL3 and RC4.\nIf true, a change to the source path (moving the source file) will cause the resource to converge and signal subscribers.\nThe source path is canonicalized before recording so relative, absolute, double dots, and multiple slashes do not matter.\n\n__Note on paths__\n\nIf a path is set for download, build or install, then the client must assure the directory exists before the resource runs.\nThe resource runs as root and sets permissions on any created files, so is capable of placing a user-owned directory in a root-owned directory.\n\nFairly standard defaults are used for paths.\nIf download_directory or build_directory is nil (default), '/var/chef/cache' will be used.\nIf install directory is nil (default), \"/opt/openssl/#{version}\" will be created and used.\n\nFor build_directory, the path given is the _parent_ of the source root that is created when the archive is extracted.\nFor example, if build_directory is set to '/usr/local/openssl-src', then the source root will be \"/usr/local/openssl-src/openssl-#{version}\".\n\nFor install_directory, the path given is the root of the install.\nFor example, if install_directory is set to '/usr/local/openssl', then the path to the OpenSSL shared library will be '/usr/local/openssl/lib/libssl.so'.\nThe lib path must be added to linker and runtime configurations (typically use -L and rpath, respectively) for dependents to load the custom libraries.\n\n## Recipes\n\nThis cookbook provides no recipes.\n\n## Examples\n\nCustom resources can be used as below.\n\n```ruby\nopenssl_installation 'No Defaults' do\n  version '1.1.0l'\n  download_directory '/usr/local/openssl-dl'\n  build_directory '/usr/local/openssl-bld'\n  install_directory '/usr/local/openssl'\n  owner 'some-dude'\n  group 'some-dudes'\n  strict_security false\nend\n```\n\n## Development\n\nSee CONTRIBUTING.md and TESTING.md.\n",
+  "maintainer": "OIT Systems Engineering",
+  "maintainer_email": "ua-oit-se@alaska.edu",
+  "license": "MIT",
+  "platforms": {
+    "ubuntu": ">= 16.0",
+    "debian": ">= 8.0",
+    "redhat": ">= 6.0",
+    "centos": ">= 6.0",
+    "oracle": ">= 6.0",
+    "fedora": ">= 0.0.0",
+    "amazon": ">= 0.0.0",
+    "suse": ">= 0.0.0"
+  },
+  "dependencies": {
+    "source_install": ">= 0.0.0"
+  },
+  "providing": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "1.2.0",
+  "source_url": "https://github.com/ualaska-it/openssl_install",
+  "issues_url": "https://github.com/ualaska-it/openssl_install/issues",
+  "privacy": false,
+  "chef_versions": [
+    [
+      ">= 14.0"
+    ]
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}
